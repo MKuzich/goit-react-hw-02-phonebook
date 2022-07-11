@@ -3,6 +3,7 @@ import styles from './ContactAddForm.module.css';
 import * as yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import PropTypes from 'prop-types';
 
 const schema = yup.object().shape({
   name: yup
@@ -34,7 +35,6 @@ const initialValues = {
 
 export const ContactAddForm = ({ nameChange, contactsChange }) => {
   const handleSubmit = ({ name, number }, { resetForm }) => {
-    console.log(name, number);
     nameChange(name, number);
     contactsChange();
     resetForm();
@@ -63,4 +63,9 @@ export const ContactAddForm = ({ nameChange, contactsChange }) => {
       </Form>
     </Formik>
   );
+};
+
+ContactAddForm.propTypes = {
+  nameChange: PropTypes.func.isRequired,
+  contactsChange: PropTypes.func.isRequired,
 };
