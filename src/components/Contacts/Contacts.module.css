@@ -6,15 +6,6 @@
   margin-top: 16px;
 }
 
-.label {
-  display: flex;
-  flex-direction: column;
-}
-
-.input {
-  margin-top: 16px;
-}
-
 .btn {
   border-color: transparent;
   background-color: #535eaa;

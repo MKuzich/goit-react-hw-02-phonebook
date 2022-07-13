@@ -2,18 +2,9 @@ import React from 'react';
 import styles from './Contacts.module.css';
 import PropTypes from 'prop-types';
 
-export const Contacts = ({ contacts, filterChange, filter, deleteContact }) => {
+export const Contacts = ({ contacts, filter, deleteContact }) => {
   return (
     <>
-      <label className={styles.label} htmlFor="filter">
-        Find contacts by name
-        <input
-          className={styles.input}
-          type="text"
-          name="filter"
-          onChange={filterChange}
-        />
-      </label>
       <ul className={styles.list}>
         {contacts.map(contact => {
           return (
@@ -45,7 +36,6 @@ Contacts.propTypes = {
       id: PropTypes.string.isRequired,
     })
   ),
-  filterChange: PropTypes.func.isRequired,
-  filter: PropTypes.string,
   deleteContact: PropTypes.func.isRequired,
+  filter: PropTypes.string,
 };

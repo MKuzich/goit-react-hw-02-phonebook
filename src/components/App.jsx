@@ -1,14 +1,15 @@
-import { Phonebook } from './Phonebook/Phonebook';
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Contacts } from 'components/Contacts/Contacts';
+import { ContactAddForm } from 'components/ContactAddForm/ContactAddForm';
+import { Filter } from 'components/Filter/Filter';
+import styles from './App.module.css';
 
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
-    name: '',
-    number: '',
   };
 
   deleteContact = e => {
@@ -23,39 +24,40 @@ export class App extends Component {
     this.setState({ filter: e.target.value });
   };
 
-  nameChange = (name, number) => {
-    this.setState({ name: name, number: number });
-  };
-
-  contactsChange = () => {
+  contactsChange = (name, number) => {
     this.setState(prevState => {
       if (
         prevState.contacts.find(contact =>
-          contact.name.toLowerCase().includes(prevState.name.toLowerCase())
+          contact.name.toLowerCase().includes(name.toLowerCase())
         )
       ) {
-        return Notify.warning(`${prevState.name} is already in contacts`);
+        return Notify.warning(`${name} is already in contacts`);
       }
       return {
         contacts: [
           ...prevState.contacts,
-          { name: prevState.name, number: prevState.number, id: nanoid() },
+          { name: name, number: number, id: nanoid() },
         ],
-        name: '',
-        number: '',
       };
     });
   };
 
   render() {
     return (
-      <Phonebook
-        data={this.state}
-        nameChange={this.nameChange}
-        contactsChange={this.contactsChange}
-        filterChange={this.filterChange}
-        deleteContact={this.deleteContact}
-      ></Phonebook>
+      <>
+        <section className={styles.section}>
+          <h1 className={styles.header}>Phonebook</h1>
+
+          <ContactAddForm contactsChange={this.contactsChange} />
+          <h2 className={styles.header}>Contacts</h2>
+          <Filter filterChange={this.filterChange} />
+          <Contacts
+            contacts={this.state.contacts}
+            filter={this.state.filter}
+            deleteContact={this.deleteContact}
+          />
+        </section>
+      </>
     );
   }
 }
