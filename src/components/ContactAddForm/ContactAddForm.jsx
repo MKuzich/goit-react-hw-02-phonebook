@@ -8,6 +8,10 @@ export class ContactAddForm extends Component {
     number: '',
   };
 
+  static propTypes = {
+    contactsChange: PropTypes.func.isRequired,
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
@@ -60,7 +64,3 @@ export class ContactAddForm extends Component {
     );
   }
 }
-
-ContactAddForm.propTypes = {
-  contactsChange: PropTypes.func.isRequired,
-};

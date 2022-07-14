@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Contacts.module.css';
 import PropTypes from 'prop-types';
+import { Contact } from '../Contact/Contact';
 
 export const Contacts = ({ contacts, filter, deleteContact }) => {
   return (
@@ -9,17 +10,13 @@ export const Contacts = ({ contacts, filter, deleteContact }) => {
         {contacts.map(contact => {
           return (
             contact.name.toLowerCase().includes(filter.toLowerCase()) && (
-              <li className={styles.contact} key={contact.id}>
-                {contact.name}: {contact.number}
-                <button
-                  className={styles.btn}
-                  type="button"
-                  onClick={deleteContact}
-                  id={contact.id}
-                >
-                  Delete
-                </button>
-              </li>
+              <Contact
+                deleteContact={deleteContact}
+                name={contact.name}
+                number={contact.number}
+                id={contact.id}
+                key={contact.id}
+              />
             )
           );
         })}
